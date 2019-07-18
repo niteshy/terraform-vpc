@@ -13,7 +13,6 @@ resource "aws_network_acl" "private-subnet-acl" {
   subnet_ids = ["${aws_subnet.subnet_private_1.id}",
                 "${aws_subnet.subnet_private_2.id}"]
 
- 
   ingress {
     rule_no    = 100
     protocol   = -1
@@ -39,6 +38,7 @@ resource "aws_network_acl" "private-subnet-acl" {
     action     = "allow"
   }
 
+  # Port 443 from anywhere
   egress {
     rule_no    = 100
     protocol   = 6
@@ -47,15 +47,17 @@ resource "aws_network_acl" "private-subnet-acl" {
     cidr_block = "${var.anywhere}"
     action     = "allow"
   }
+  # Port 443 from anywhere ipv6
   egress {
     rule_no    = 110
     protocol   = 6
     from_port  = 443
     to_port    = 443
-    cidr_block = "${var.anywhere_ipv6}"
+    ipv6_cidr_block = "${var.anywhere_ipv6}"
     action     = "allow"
   }
 
+  # Port 80 from anywhere
   egress {
     rule_no    = 200
     protocol   = 6
@@ -64,55 +66,77 @@ resource "aws_network_acl" "private-subnet-acl" {
     cidr_block = "${var.anywhere}"
     action     = "allow"
   }
+  # Port 80 from anywhere ipv6
   egress {
     rule_no    = 210
     protocol   = 6
     from_port  = 80
     to_port    = 80
-    cidr_block = "${var.anywhere_ipv6}"
+    ipv6_cidr_block = "${var.anywhere_ipv6}"
+    action     = "allow"
+  }
+
+  # Ephermal Port from subnet_private_1
+  egress {  
+    rule_no    = 300
+    protocol   = 6
+    from_port  = 1024
+    to_port    = 65535
+    cidr_block = "${aws_subnet.subnet_private_1.cidr_block}"
+    action     = "allow"
+  }
+  # Ephermal Port from subnet_private_2
+  egress {  
+    rule_no    = 310
+    protocol   = 6
+    from_port  = 1024
+    to_port    = 65535
+    cidr_block = "${aws_subnet.subnet_private_2.cidr_block}"
     action     = "allow"
   }
 }
 
+resource "aws_network_acl" "private-redshift_subnet-acl" {
+  tags = {
+    Name = "private-redshift_subnet-acl"
+  }
+  vpc_id = "${aws_vpc.vpc_main.id}"
+  subnet_ids = ["${aws_subnet.subnet_private_redshift.id}"]
 
-# resource "aws_network_acl" "redshift" {
-#   tags = {
-#     Name = "redshift-vpc-acl"
-#   }
-#   vpc_id = "${aws_vpc.main.id}"
-#   subnet_ids = "${var.redshift_subnet_ids}"
-#   ingress {
-#     rule_no    = 100
-#     protocol   = 6
-#     action     = "allow"
-#     cidr_block = "10.11.16.0/20"
-#     from_port  = 5439
-#     to_port    = 5439
-#   }
-#   ingress {
-#     rule_no    = 110
-#     protocol   = 6
-#     action     = "allow"
-#     cidr_block = "10.11.0.0/20"
-#     from_port  = 5439
-#     to_port    = 5439
-#   }
+  ingress {
+    rule_no    = 100
+    protocol   = 6
+    from_port  = 5439
+    to_port    = 5439
+    cidr_block = "${aws_subnet.subnet_private_1.cidr_block}"
+    action     = "allow"
+  }
+  ingress {
+    rule_no    = 110
+    protocol   = 6
+    from_port  = 5439
+    to_port    = 5439
+    cidr_block = "${aws_subnet.subnet_private_2.cidr_block}"
+    action     = "allow"
+  }
 
-#  egress {
-#     rule_no    = 100
-#     protocol   = 6
-#     action     = "allow"
-#     cidr_block = "10.11.16.0/20"
-#     from_port  = 1024
-#     to_port    = 65535
-#   }
-#   egress {
-#     rule_no    = 110
-#     protocol   = 6
-#     action     = "allow"
-#     cidr_block = "10.11.0.0/20"
-#     from_port  = 1024
-#     to_port    = 65535
-#   }
-# }
+  # Ephermal Port from subnet_private_1
+  egress {  
+    rule_no    = 300
+    protocol   = 6
+    from_port  = 1024
+    to_port    = 65535
+    cidr_block = "${aws_subnet.subnet_private_1.cidr_block}"
+    action     = "allow"
+  }
+  # Ephermal Port from subnet_private_2
+  egress {  
+    rule_no    = 310
+    protocol   = 6
+    from_port  = 1024
+    to_port    = 65535
+    cidr_block = "${aws_subnet.subnet_private_2.cidr_block}"
+    action     = "allow"
+  }
+}
 

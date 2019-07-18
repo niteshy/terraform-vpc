@@ -15,6 +15,11 @@ variable "private_subnet_cidr_block2" {
     default = "10.11.16.0/20"
 }
 
+
+variable "private_subnet_cidr_block_redshift" {
+    default = "10.11.160.0/22"
+}
+
 resource "aws_subnet" "subnet_private_1" {
   vpc_id = "${aws_vpc.vpc_main.id}"
   availability_zone = "${var.private_subnet_az1}"
@@ -33,6 +38,17 @@ resource "aws_subnet" "subnet_private_2" {
 
   tags = {
     Name = "subnet_private_2"
+    Owner = "terraform"
+  }
+}
+
+resource "aws_subnet" "subnet_private_redshift" {
+  vpc_id = "${aws_vpc.vpc_main.id}"
+  availability_zone = "${var.private_subnet_az1}"
+  cidr_block = "${var.private_subnet_cidr_block_redshift}"
+
+  tags = {
+    Name = "subnet_private_redshift"
     Owner = "terraform"
   }
 }
