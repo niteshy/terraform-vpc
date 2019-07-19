@@ -20,3 +20,4 @@ resource "aws_internet_gateway" "public_igateway" {
     createdBy = "${var.createdBy}"
   }
 }
+

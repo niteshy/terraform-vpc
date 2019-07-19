@@ -2,3 +2,4 @@
 plans/
 terraform-repo.iml
 terraform.tfstate**
+.terraform.tfstate.lock.info
