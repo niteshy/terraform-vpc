@@ -49,25 +49,25 @@ resource "aws_vpc_endpoint" "vpce_ec2" {
 }
 
 # interface vpce (ecr.api) 
-resource "aws_vpc_endpoint" "vpce_ecr.api" {
+resource "aws_vpc_endpoint" "vpce_ecr-api" {
   vpc_id = "${aws_vpc.vpc_main.id}"
   vpc_endpoint_type = "Interface"
   subnet_ids = [ "${aws_subnet.subnet_private_1.id}", "${aws_subnet.subnet_private_2.id}"]
   security_group_ids = [ "${aws_security_group.sg_vpce.id}" ]
   service_name = "com.amazonaws.us-east-1.ecr.api"
   tags = {
-    Name = "vpce_ecr.api"
+    Name = "vpce_ecr-api"
   }
 }
 # interface vpce (ecr.dkr) 
-resource "aws_vpc_endpoint" "vpce_ecr.dkr" {
+resource "aws_vpc_endpoint" "vpce_ecr-dkr" {
   vpc_id = "${aws_vpc.vpc_main.id}"
   vpc_endpoint_type = "Interface"
   subnet_ids = [ "${aws_subnet.subnet_private_1.id}", "${aws_subnet.subnet_private_2.id}"]
   security_group_ids = [ "${aws_security_group.sg_vpce.id}" ]
   service_name = "com.amazonaws.us-east-1.ecr.dkr"
   tags = {
-    Name = "vpce_ecr.dkr"
+    Name = "vpce_ecr-dkr"
   }
 }
 
