@@ -1,5 +1,5 @@
 variable "vpce_private_dns_enabled" {
-  default = false
+  default = "true"
 }
 
 # interface vpce (cloudformation) 
@@ -9,6 +9,7 @@ resource "aws_vpc_endpoint" "vpce_cloudformation" {
   subnet_ids = [ "${aws_subnet.subnet_private_1.id}", "${aws_subnet.subnet_private_2.id}"]
   security_group_ids = [ "${aws_security_group.sg_vpce.id}" ]
   service_name = "com.amazonaws.us-east-1.cloudformation"
+  private_dns_enabled = "${var.vpce_private_dns_enabled}"
   tags = {
     Name = "vpce_cloudformation"
   }
@@ -21,6 +22,7 @@ resource "aws_vpc_endpoint" "vpce_cloudtrail" {
   subnet_ids = [ "${aws_subnet.subnet_private_1.id}", "${aws_subnet.subnet_private_2.id}"]
   security_group_ids = [ "${aws_security_group.sg_vpce.id}" ]
   service_name = "com.amazonaws.us-east-1.cloudtrail"
+  private_dns_enabled = "${var.vpce_private_dns_enabled}"
   tags = {
     Name = "vpce_cloudtrail"
   }
@@ -43,6 +45,7 @@ resource "aws_vpc_endpoint" "vpce_ec2" {
   subnet_ids = [ "${aws_subnet.subnet_private_1.id}", "${aws_subnet.subnet_private_2.id}"]
   security_group_ids = [ "${aws_security_group.sg_vpce.id}" ]
   service_name = "com.amazonaws.us-east-1.ec2"
+  private_dns_enabled = "${var.vpce_private_dns_enabled}"
   tags = {
     Name = "vpce_ec2"
   }
@@ -55,6 +58,7 @@ resource "aws_vpc_endpoint" "vpce_ecr-api" {
   subnet_ids = [ "${aws_subnet.subnet_private_1.id}", "${aws_subnet.subnet_private_2.id}"]
   security_group_ids = [ "${aws_security_group.sg_vpce.id}" ]
   service_name = "com.amazonaws.us-east-1.ecr.api"
+  private_dns_enabled = "${var.vpce_private_dns_enabled}"
   tags = {
     Name = "vpce_ecr-api"
   }
@@ -66,6 +70,7 @@ resource "aws_vpc_endpoint" "vpce_ecr-dkr" {
   subnet_ids = [ "${aws_subnet.subnet_private_1.id}", "${aws_subnet.subnet_private_2.id}"]
   security_group_ids = [ "${aws_security_group.sg_vpce.id}" ]
   service_name = "com.amazonaws.us-east-1.ecr.dkr"
+  private_dns_enabled = "${var.vpce_private_dns_enabled}"
   tags = {
     Name = "vpce_ecr-dkr"
   }
@@ -78,6 +83,7 @@ resource "aws_vpc_endpoint" "vpce_ecs" {
   subnet_ids = [ "${aws_subnet.subnet_private_1.id}", "${aws_subnet.subnet_private_2.id}"]
   security_group_ids = [ "${aws_security_group.sg_vpce.id}" ]
   service_name = "com.amazonaws.us-east-1.ecs"
+  private_dns_enabled = "${var.vpce_private_dns_enabled}"
   tags = {
     Name = "vpce_ecs"
   }
@@ -90,6 +96,7 @@ resource "aws_vpc_endpoint" "vpce_ecs-agent" {
   subnet_ids = [ "${aws_subnet.subnet_private_1.id}", "${aws_subnet.subnet_private_2.id}"]
   security_group_ids = [ "${aws_security_group.sg_vpce.id}" ]
   service_name = "com.amazonaws.us-east-1.ecs-agent"
+  private_dns_enabled = "${var.vpce_private_dns_enabled}"
   tags = {
     Name = "vpce_ecs-agent"
   }
@@ -103,6 +110,7 @@ resource "aws_vpc_endpoint" "vpce_ecs-telemetry" {
   subnet_ids = [ "${aws_subnet.subnet_private_1.id}", "${aws_subnet.subnet_private_2.id}"]
   security_group_ids = [ "${aws_security_group.sg_vpce.id}" ]
   service_name = "com.amazonaws.us-east-1.ecs-telemetry"
+  private_dns_enabled = "${var.vpce_private_dns_enabled}"
   tags = {
     Name = "vpce_ecs-telemetry"
   }
@@ -116,6 +124,7 @@ resource "aws_vpc_endpoint" "vpce_elasticloadbalancing" {
   subnet_ids = [ "${aws_subnet.subnet_private_1.id}", "${aws_subnet.subnet_private_2.id}"]
   security_group_ids = [ "${aws_security_group.sg_vpce.id}" ]
   service_name = "com.amazonaws.us-east-1.elasticloadbalancing"
+  private_dns_enabled = "${var.vpce_private_dns_enabled}"
   tags = {
     Name = "vpce_elasticloadbalancing"
   }
@@ -128,6 +137,7 @@ resource "aws_vpc_endpoint" "vpce_events" {
   subnet_ids = [ "${aws_subnet.subnet_private_1.id}", "${aws_subnet.subnet_private_2.id}"]
   security_group_ids = [ "${aws_security_group.sg_vpce.id}" ]
   service_name = "com.amazonaws.us-east-1.events"
+  private_dns_enabled = "${var.vpce_private_dns_enabled}"
   tags = {
     Name = "vpce_events"
   }
@@ -140,6 +150,7 @@ resource "aws_vpc_endpoint" "vpce_execute-api" {
   subnet_ids = [ "${aws_subnet.subnet_private_1.id}", "${aws_subnet.subnet_private_2.id}"]
   security_group_ids = [ "${aws_security_group.sg_vpce.id}" ]
   service_name = "com.amazonaws.us-east-1.execute-api"
+  private_dns_enabled = "${var.vpce_private_dns_enabled}"
   tags = {
     Name = "vpce_execute-api"
   }
@@ -151,6 +162,7 @@ resource "aws_vpc_endpoint" "vpce_glue" {
   subnet_ids = [ "${aws_subnet.subnet_private_1.id}", "${aws_subnet.subnet_private_2.id}"]
   security_group_ids = [ "${aws_security_group.sg_vpce.id}" ]
   service_name = "com.amazonaws.us-east-1.glue"
+  private_dns_enabled = "${var.vpce_private_dns_enabled}"
   tags = {
     Name = "vpce_glue"
   }
@@ -163,6 +175,7 @@ resource "aws_vpc_endpoint" "vpce_kinesis-firehose" {
   subnet_ids = [ "${aws_subnet.subnet_private_1.id}", "${aws_subnet.subnet_private_2.id}"]
   security_group_ids = [ "${aws_security_group.sg_vpce.id}" ]
   service_name = "com.amazonaws.us-east-1.kinesis-firehose"
+  private_dns_enabled = "${var.vpce_private_dns_enabled}"
   tags = {
     Name = "vpce_kinesis-firehose"
   }
@@ -175,6 +188,7 @@ resource "aws_vpc_endpoint" "vpce_kinesis-streams" {
   subnet_ids = [ "${aws_subnet.subnet_private_1.id}", "${aws_subnet.subnet_private_2.id}"]
   security_group_ids = [ "${aws_security_group.sg_vpce.id}" ]
   service_name = "com.amazonaws.us-east-1.kinesis-streams"
+  private_dns_enabled = "${var.vpce_private_dns_enabled}"
   tags = {
     Name = "vpce_kinesis-streams"
   }
@@ -187,6 +201,7 @@ resource "aws_vpc_endpoint" "vpce_kms" {
   subnet_ids = [ "${aws_subnet.subnet_private_1.id}", "${aws_subnet.subnet_private_2.id}"]
   security_group_ids = [ "${aws_security_group.sg_vpce.id}" ]
   service_name = "com.amazonaws.us-east-1.kms"
+  private_dns_enabled = "${var.vpce_private_dns_enabled}"
   tags = {
     Name = "vpce_kms"
   }
@@ -199,6 +214,7 @@ resource "aws_vpc_endpoint" "vpce_logs" {
   subnet_ids = [ "${aws_subnet.subnet_private_1.id}", "${aws_subnet.subnet_private_2.id}"]
   security_group_ids = [ "${aws_security_group.sg_vpce.id}" ]
   service_name = "com.amazonaws.us-east-1.logs"
+  private_dns_enabled = "${var.vpce_private_dns_enabled}"
   tags = {
     Name = "vpce_logs"
   }
@@ -211,6 +227,7 @@ resource "aws_vpc_endpoint" "vpce_monitoring" {
   subnet_ids = [ "${aws_subnet.subnet_private_1.id}", "${aws_subnet.subnet_private_2.id}"]
   security_group_ids = [ "${aws_security_group.sg_vpce.id}" ]
   service_name = "com.amazonaws.us-east-1.monitoring"
+  private_dns_enabled = "${var.vpce_private_dns_enabled}"
   tags = {
     Name = "vpce_monitoring"
   }
@@ -233,6 +250,7 @@ resource "aws_vpc_endpoint" "vpce_sns" {
   subnet_ids = [ "${aws_subnet.subnet_private_1.id}", "${aws_subnet.subnet_private_2.id}"]
   security_group_ids = [ "${aws_security_group.sg_vpce.id}" ]
   service_name = "com.amazonaws.us-east-1.sns"
+  private_dns_enabled = "${var.vpce_private_dns_enabled}"
   tags = {
     Name = "vpce_sns"
   }
