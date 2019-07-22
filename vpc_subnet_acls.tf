@@ -118,6 +118,16 @@ resource "aws_network_acl" "private-subnet-acl" {
     action     = "allow"
   }
 
+
+  # Allow connecting to Redshift (5439) 
+  egress {
+    rule_no    = 90
+    protocol   = 6
+    from_port  = 5439
+    to_port    = 5439
+    cidr_block = "${aws_subnet.subnet_private_redshift.cidr_block}"
+    action     = "allow"
+  }
   # Port 443 from anywhere
   egress {
     rule_no    = 100
