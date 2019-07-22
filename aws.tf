@@ -1,7 +1,11 @@
+variable "shared_credentials_file" {}
+variable "region" {}
+variable "profile" {}
+
 
 provider "aws" {
-  region = "us-east-1"
-  shared_credentials_file = "/Users/Nitesh/.aws/credentials"
-  profile = "stage"
+  region = "${var.region}"
+  shared_credentials_file = "${var.shared_credentials_file}"
+  profile = "${var.profile}"
 }
 
